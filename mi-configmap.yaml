@@ -1,0 +1,58 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mi-configmap
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mi Aplicación en Kubernetes</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin: 50px;
+                background-color: #f4f4f4;
+            }
+            h1 {
+                color: #333;
+            }
+            .container {
+                background: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                display: inline-block;
+                max-width: 600px;
+                margin: auto;
+            }
+            ul {
+                text-align: left;
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🚀 ¡Bienvenido a mi aplicación en Kubernetes! 🎉</h1>
+            <p>Esta es una prueba de despliegue usando ConfigMap en Kubernetes.</p>
+            <h2>🔹 Conceptos Claves de Kubernetes</h2>
+            <ul>
+                <li><strong>Pod 🛑:</strong> Unidad básica que ejecuta uno o varios contenedores.</li>
+                <li><strong>Deployment 🚀:</strong> Gestiona la creación y escalabilidad de los Pods.</li>
+                <li><strong>Service 🌐:</strong> Expone los Pods dentro o fuera del clúster.</li>
+                <li><strong>ConfigMap 📜:</strong> Almacena configuraciones externas.</li>
+                <li><strong>Secret 🔐:</strong> Guarda datos sensibles como contraseñas.</li>
+                <li><strong>Volume 📁:</strong> Permite almacenamiento persistente.</li>
+                <li><strong>Ingress 🚦:</strong> Controla el tráfico externo con balanceo de carga.</li>
+                <li><strong>HPA 📊:</strong> Escala los Pods dinámicamente según uso de CPU/memoria.</li>
+                <li><strong>Probes ❤️‍🔥:</strong> Monitorean la salud de los contenedores.</li>
+                <li><strong>Namespaces 🏢:</strong> Separan recursos en entornos (dev, test, prod).</li>
+            </ul>
+            <p>🔹 Kubernetes permite alta disponibilidad, escalabilidad y gestión eficiente de aplicaciones. 🚀</p>
+        </div>
+    </body>
+    </html>
