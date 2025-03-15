@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: mi-app
+  template:
+    metadata:
+      labels:
+        app: mi-app
+    spec:
+      containers:
+        - name: mi-app
+          image: nginx
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "150m"   # 🚀 Aumentado ligeramente para mejor estabilidad
+              memory: "128Mi"  # ✅ Solicitud básica de memoria para estabilidad
+            limits:
+              cpu: "600m"   # 🔥 Incrementado ligeramente para evitar restricciones muy rápidas
+              memory: "256Mi" # ✅ Limitar memoria para evitar excesos
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+            - name: default-config
+              mountPath: /etc/nginx/conf.d/default.conf
+              subPath: default.conf
+            - name: html-configmap
+              mountPath: /usr/share/nginx/html/index.html
+              subPath: index.html
+          
+          # 🔍 PROBES (Salud del contenedor)
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 15  # ⏳ Esperar antes de la primera verificación
+            periodSeconds: 20        # 🔄 Verificar cada 20s
+            failureThreshold: 3      # ❌ Reinicia el pod si falla 3 veces seguidas
+          
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10   # ⏳ Da más tiempo a Nginx para arrancar
+            periodSeconds: 5          # 📊 Comprueba más seguido si está listo
+            timeoutSeconds: 3         # ⏱️ Espera hasta 3s antes de fallar
+            failureThreshold: 3       # 🔄 Tolera hasta 3 fallos antes de marcarlo como no listo
+            successThreshold: 1       # ✅ Si responde una vez bien, lo marca como listo
+
+          startupProbe: # 🔥 OPCIONAL si la aplicación tarda en arrancar
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 6  # Espera hasta 60 segundos antes de reiniciar
+
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: nginx-config
+        - name: default-config
+          configMap:
+            name: default-config
+        - name: html-configmap
+          configMap:
+            name: mi-configmap
