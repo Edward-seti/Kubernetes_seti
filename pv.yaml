@@ -1,3 +1,4 @@
+# 📁 PersistentVolume (PV)
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -8,5 +9,7 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard  # ⬅ Agregado para compatibilidad con PVC
+  volumeMode: Filesystem       # ⬅ Agregado para evitar problemas con algunos tipos de volúmenes
   hostPath:
     path: "/mnt/data"
