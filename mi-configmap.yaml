@@ -1,3 +1,4 @@
+# ConfigMap para Nginx
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -56,3 +57,5 @@ data:
         </div>
     </body>
     </html>
+  healthz: |
+    OK
