@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: mi-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: mi-app
@@ -41,7 +41,7 @@ spec:
               port: 80
             initialDelaySeconds: 0
             periodSeconds: 5
-            timeoutSeconds: 5
+            #timeoutSeconds: 5
             failureThreshold: 6
 
           # 🔍 **Liveness Probe** - Verifica si el contenedor sigue vivo, si falla, Kubernetes lo reinicia
@@ -51,7 +51,7 @@ spec:
               port: 80
             initialDelaySeconds: 40
             periodSeconds: 30
-            timeoutSeconds: 5
+            #timeoutSeconds: 5
             failureThreshold: 5
           
           # 🔍 **Readiness Probe** - Verifica si el contenedor puede aceptar tráfico
@@ -61,7 +61,7 @@ spec:
               port: 80
             initialDelaySeconds: 40
             periodSeconds: 5
-            timeoutSeconds: 5
+            #timeoutSeconds: 5
             failureThreshold: 3
 
       volumes:
