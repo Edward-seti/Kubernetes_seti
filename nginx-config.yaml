@@ -18,5 +18,19 @@ data:
         sendfile on;
         keepalive_timeout 65;
 
-        include /etc/nginx/conf.d/*.conf;
+        server {
+            listen 80;
+            
+            location / {
+                root /usr/share/nginx/html;
+                index index.html;
+            }
+
+            # ✅ NUEVA CONFIGURACIÓN: Siempre devolver 200 OK en /healthz
+            location /healthz {
+                default_type text/plain;
+                return 200 "OK";
+                access_log off;
+            }
+        }
     }
