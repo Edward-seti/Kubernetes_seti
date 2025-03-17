@@ -1,3 +1,4 @@
+# 📁 PersistentVolumeClaim (PVC)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -5,6 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  storageClassName: standard  # ⬅ Debe coincidir con el del PV
   resources:
     requests:
-      storage: 500Mi
+      storage: 500Mi  # ⬅ Puede solicitar menos que el PV, pero no más
